@@ -119,6 +119,7 @@ class Admin::OverviewController < Admin::BaseController
   end
 
   def best_selling_taxons
+    return [] if Taxonomy.count == 0
     taxonomy = Taxonomy.last
     taxons =  Taxon.connection.select_rows("select t.name, count(li.quantity) from line_items li inner join variants v on
            li.variant_id = v.id inner join products p on v.product_id = p.id inner join products_taxons pt on p.id = pt.product_id
