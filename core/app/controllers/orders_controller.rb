@@ -14,7 +14,7 @@ class OrdersController < Spree::BaseController
       @order.line_items = @order.line_items.select {|li| li.quantity > 0 }
       respond_with(@order) { |format| format.html { redirect_to cart_path } }
     else
-      respond_with(@order) 
+      respond_with(@order)
     end
   end
 
@@ -54,11 +54,11 @@ class OrdersController < Spree::BaseController
     if @order = current_order
       @order.line_items.destroy_all
     end
-    
+
     respond_with(@order) { |format| format.html { redirect_to cart_path } }
   end
 
   def accurate_title
-    @order && @order.completed? ? "#{Order.human_name} #{@order.number}" : I18n.t(:shopping_cart)
+    @order && @order.completed? ? "#{Order.model_name.human} #{@order.number}" : I18n.t(:shopping_cart)
   end
 end
